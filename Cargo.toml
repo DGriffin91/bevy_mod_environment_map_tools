@@ -1,0 +1,13 @@
+[package]
+name = "bevy_mod_environment_map_tools"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bevy = { version = "0.9", features = ["zstd", "ktx2"] }
+half = { version = "2.1" }
+ktx2 = { git = "https://github.com/BVE-Reborn/ktx2", rev = "4a7cc48ffa4deb3aa1ef5b453292220489908fa1" }
+zstd = "0.12"
+clap = { version = "4.1", features = ["derive"] }
