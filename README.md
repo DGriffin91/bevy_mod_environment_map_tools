@@ -9,7 +9,7 @@ More features planned:
 ```
 Encode Rgba16Float images as rgb9e5 in ktx2 files
 
-Usage: bevy_mod_environment_map_tools.exe [OPTIONS]
+Usage: bevy_mod_environment_map_tools [OPTIONS]
 
 Options:
   -i, --inputs <INPUTS>    Input file paths
