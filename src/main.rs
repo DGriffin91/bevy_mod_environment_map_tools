@@ -1,7 +1,7 @@
 use std::{path::PathBuf, time::Duration};
 
 use bevy::{
-    app::{AppExit, ScheduleRunnerSettings},
+    app::{AppExit, ScheduleRunnerPlugin},
     log::{Level, LogPlugin},
     prelude::*,
 };
@@ -39,21 +39,21 @@ fn main() {
 
     let mut app = App::new();
     // TODO don't be ridiculous
-    app.insert_resource(ScheduleRunnerSettings::run_loop(Duration::from_secs_f64(
-        1.0 / 100.0,
-    )))
-    .add_plugins(
+    app.add_plugins(
         MinimalPlugins
+            .set(ScheduleRunnerPlugin::run_loop(Duration::from_secs_f64(
+                1.0 / 100.0,
+            )))
             .build()
             .add(AssetPlugin::default())
             .add(ImagePlugin::default()),
     )
-    .add_system(convert);
+    .add_systems(Update, convert);
 
     // Use bevy's logging for debug builds.
     #[cfg(debug_assertions)]
     {
-        app.add_plugin(LogPlugin {
+        app.add_plugins(LogPlugin {
             level: Level::DEBUG,
             filter: "wgpu=error,bevy_render=info,bevy_ecs=trace".to_string(),
         });

@@ -76,7 +76,7 @@ pub fn extract_mip_level(image: &Image, mip_level: u32, face: u32) -> Image {
         );
     }
 
-    let block_size = descriptor.format.describe().block_size as usize;
+    let block_size = descriptor.format.block_size(None).unwrap() as usize;
 
     let mut byte_offset = 0usize;
 
