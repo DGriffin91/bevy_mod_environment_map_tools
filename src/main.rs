@@ -2,6 +2,7 @@ use std::{path::PathBuf, time::Duration};
 
 use bevy::{
     app::{AppExit, ScheduleRunnerSettings},
+    log::{Level, LogPlugin},
     prelude::*,
 };
 use bevy_mod_environment_map_tools::write_ktx2;
@@ -48,6 +49,15 @@ fn main() {
             .add(ImagePlugin::default()),
     )
     .add_system(convert);
+
+    // Use bevy's logging for debug builds.
+    #[cfg(debug_assertions)]
+    {
+        app.add_plugin(LogPlugin {
+            level: Level::DEBUG,
+            filter: "wgpu=error,bevy_render=info,bevy_ecs=trace".to_string(),
+        });
+    }
 
     for (input, output) in args.inputs.iter().zip(args.outputs.iter()) {
         let asset_server = app.world.resource_mut::<AssetServer>();
