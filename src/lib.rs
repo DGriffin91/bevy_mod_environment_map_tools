@@ -111,7 +111,7 @@ pub fn extract_mip_level(image: &Image, mip_level: u32, face: u32) -> Image {
     Image {
         data: image.data[byte_offset..byte_offset + (width * block_size * height)].to_vec(),
         texture_descriptor: new_descriptor,
-        sampler_descriptor: image.sampler_descriptor.clone(),
+        sampler: image.sampler.clone(),
         texture_view_descriptor: image.texture_view_descriptor.clone(),
     }
 }
