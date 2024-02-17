@@ -56,6 +56,7 @@ fn main() {
         app.add_plugins(LogPlugin {
             level: Level::DEBUG,
             filter: "wgpu=error,bevy_render=info,bevy_ecs=trace".to_string(),
+            update_subscriber: None,
         });
     }
 

@@ -1,6 +1,9 @@
 use std::path::Path;
 
-use bevy::{prelude::Image, render::render_resource::Extent3d};
+use bevy::{
+    prelude::Image,
+    render::{render_asset::RenderAssetUsages, render_resource::Extent3d},
+};
 use ktx2::SupercompressionScheme;
 use ktx2_writer::{Header, KTX2Writer, WriterLevel};
 use rgb9e5::float3_to_rgb9e5;
@@ -76,7 +79,7 @@ pub fn extract_mip_level(image: &Image, mip_level: u32, face: u32) -> Image {
         );
     }
 
-    let block_size = descriptor.format.block_size(None).unwrap() as usize;
+    let block_size = descriptor.format.block_copy_size(None).unwrap() as usize;
 
     let mut byte_offset = 0usize;
 
@@ -113,5 +116,6 @@ pub fn extract_mip_level(image: &Image, mip_level: u32, face: u32) -> Image {
         texture_descriptor: new_descriptor,
         sampler: image.sampler.clone(),
         texture_view_descriptor: image.texture_view_descriptor.clone(),
+        asset_usage: RenderAssetUsages::default(),
     }
 }
